@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Writing Feedback & Practice (Session 7)</title>
+    <title>Writing Task Feedback & Practice (SPAN1001)</title>
     <style>
         :root {
             --primary: #005a9c;
@@ -159,7 +159,7 @@
             gap: 8px;
         }
         .context { font-weight: bold; color: #d93025; font-size: 1em; font-family: 'Courier New', monospace; }
-        .input-group { display: flex; gap: 10px; margin-top: 5px; }
+        .input-group { display: flex; gap: 10px; margin-top: 5px; align-items: center; }
         input[type="text"] {
             flex-grow: 1;
             padding: 10px;
@@ -179,6 +179,18 @@
             cursor: pointer;
             font-weight: bold;
         }
+        button.hint-btn {
+            background-color: #90caf9;
+            color: #0d47a1;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        button.hint-btn:hover { background-color: #64b5f6; }
+        
         button.reset-btn {
             background-color: #666;
             margin-top: 20px;
@@ -188,7 +200,7 @@
         .feedback-msg { font-size: 0.9em; margin-top: 5px; font-weight: bold; min-height: 1.2em;}
         .feedback-msg.success { color: var(--success); }
         .feedback-msg.fail { color: var(--error); }
-        .feedback-msg.info { color: var(--warning); }
+        .feedback-msg.info { color: var(--primary); font-style: italic; font-weight: normal; }
 
         /* Modal */
         .mini-modal {
@@ -351,7 +363,7 @@ Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo
 
         <!-- EXERCISE 2 -->
         <h3>Exercise 2: General Error Correction</h3>
-        <p>The following 30 sentences contain mixed errors. <strong>Type the FULL corrected sentence</strong>.</p>
+        <p>The following 30 sentences contain mixed errors. <strong>Type the FULL corrected sentence</strong>. Use the Hint (?) if needed.</p>
 
         <div id="exercise2-container" class="sentence-grid"></div>
         
@@ -454,12 +466,13 @@ Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo
                     inputBox.classList.add('incorrect');
                 }
             } else {
+                // POSITIVE FEEDBACK LOGIC
                 if (userVal.toLowerCase() !== currentSpan.textContent.toLowerCase()) {
                     msgBox.textContent = "Wait! This word was already correct.";
                     msgBox.className = "feedback-msg info";
                     inputBox.classList.add('incorrect');
                 } else {
-                    msgBox.textContent = "This word is correct.";
+                    msgBox.textContent = "¡Muy bien! This word is correct.";
                     msgBox.className = "feedback-msg success";
                 }
             }
@@ -481,33 +494,32 @@ Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo
            LOGIC FOR EXERCISE 2 (30 Errors)
            =========================== */
         const sentenceData = [
-            { wrong: "Soy bien hoy.", correct: "Estoy bien hoy" },
-            { wrong: "Vamos en Japón.", correct: "Vamos a Japón" },
-            { wrong: "Tengo muchos dineros.", correct: "Tengo mucho dinero" },
-            { wrong: "Quiero compro ropa.", correct: "Quiero comprar ropa" },
-            { wrong: "Voy con tu.", correct: "Voy contigo" },
-            { wrong: "Necessito mi passaporte.", correct: "Necesito mi pasaporte" },
-            { wrong: "La gente son simpáticas.", correct: "La gente es simpática" },
-            { wrong: "Llevo las ropas.", correct: "Llevo la ropa" },
-            { wrong: "En lunes descanso.", correct: "El lunes descanso" },
-            { wrong: "Un semana tener 7 días.", correct: "Una semana tiene 7 días" },
-            { wrong: "El hotel es en macao.", correct: "El hotel está en Macao" },
-            { wrong: "Querer viajar en la playa.", correct: "Quiero viajar a la playa" },
-            { wrong: "Hablo español y inglés.", correct: "Hablo español e inglés" },
-            { wrong: "Queiro siete o ocho.", correct: "Quiero siete u ocho" },
-            { wrong: "Yo comer mucho.", correct: "Yo como mucho" },
-            { wrong: "Es un lugar touristico.", correct: "Es un lugar turístico" },
-            { wrong: "Es muy differente.", correct: "Es muy diferente" },
-            { wrong: "Un pantalones largo.", correct: "Unos pantalones largos" },
-            { wrong: "Quiero tener desayuno.", correct: "Quiero desayunar" },
-            { wrong: "Gusto macao.", correct: "Me gusta Macao" },
-            { wrong: "Yo hacer photos.", correct: "Yo hago fotos" },
-            { wrong: "Tengo que llevo dinero.", correct: "Tengo que llevar dinero" },
-            { wrong: "Me gusta beach.", correct: "Me gusta la playa" },
-            { wrong: "En fin de semana estudio.", correct: "El fin de semana estudio" },
-            { wrong: "Tengo camisa blanca y negro.", correct: "Tengo una camisa blanca y negra" },
-            { wrong: "Mi zapatos es caros.", correct: "Mis zapatos son caros" },
-            { wrong: "Mi passporte roja.", correct: "Mi pasaporte es rojo" }
+            { wrong: "Soy bien hoy.", correct: "Estoy bien hoy", hint: "Is this a permanent characteristic or a temporary state?" },
+            { wrong: "Vamos en Japón.", correct: "Vamos a Japón", hint: "Which preposition do we use for movement/destination?" },
+            { wrong: "Tengo muchos dineros.", correct: "Tengo mucho dinero", hint: "Is 'money' countable or uncountable in Spanish?" },
+            { wrong: "Quiero compro ropa.", correct: "Quiero comprar ropa", hint: "Two conjugated verbs cannot go together. Use the infinitive." },
+            { wrong: "Voy con tu.", correct: "Voy contigo", hint: "Pronouns change after 'con'. Remember 'migo', 'tigo'..." },
+            { wrong: "Necessito mi pasaporte.", correct: "Necesito mi pasaporte", hint: "Check the spelling. Remember the CaRoLiNa rule." },
+            { wrong: "La gente son simpáticas.", correct: "La gente es simpática", hint: "Is 'Gente' singular or plural grammatically?" },
+            { wrong: "Llevo las ropas.", correct: "Llevo la ropa", hint: "'Clothes' is usually a singular collective noun in Spanish." },
+            { wrong: "En lunes descanso.", correct: "El lunes descanso", hint: "We don't use 'En' for days of the week. Use the article." },
+            { wrong: "Un semana tiene 7 días.", correct: "Una semana tiene 7 días", hint: "Check the gender agreement for 'Semana'." },
+            { wrong: "El hotel es en Macao.", correct: "El hotel está en Macao", hint: "For location, do we use Ser or Estar?" },
+            { wrong: "Quiero viajar en playa.", correct: "Quiero viajar a la playa", hint: "Movement to a place requires the preposition 'a'. Also, something is missing..." },
+            { wrong: "Hablo español y inglés.", correct: "Hablo español e inglés", hint: "Watch out for the phonetic clash 'y' + 'i'." },
+            { wrong: "Yo comer mucha.", correct: "Yo como mucho", hint: "Don't use the infinitive like a robot! Conjugate the verb." },
+            { wrong: "Es un lugar touristico.", correct: "Es un lugar turístico", hint: "Spelling error. Don't invent words from English." },
+            { wrong: "Es muy differente.", correct: "Es muy diferente", hint: "CaRoLiNa rule: No double 'f'." },
+            { wrong: "Un pantalones largo.", correct: "Unos pantalones largos", hint: "Adjectives must match the noun in number (plural)." },
+            { wrong: "Quiero tener desayuno.", correct: "Quiero desayunar", hint: "We don't 'possess' breakfast. We 'take' it or use 'desayunar'." },
+            { wrong: "Gusta macao.", correct: "Me gusta Macao", hint: "Proper nouns (cities) need capitalization. Also, the verb gustar is different..." },
+            { wrong: "Yo hacer fotos.", correct: "Yo hago fotos", hint: "Conjugate the verb 'Hacer' for 'Yo'." },
+            { wrong: "Tener que llevo dinero.", correct: "Tengo que llevar dinero", hint: "After 'Tener que', the second verb must be..." },
+            { wrong: "Me gustan la beach.", correct: "Me gusta la playa", hint: "Don't use Spanglish. What is the word for 'beach'?" },
+            { wrong: "En fin de semana estudio.", correct: "El fin de semana estudio", hint: "Use the article 'El', not the preposition 'En'." },
+            { wrong: "Tengo un camisa blanca y negro.", correct: "Tengo una camisa blanca y negra", hint: "Adjectives must match the noun 'Camisa' (Feminine)." },
+            { wrong: "Mi zapatos es caros.", correct: "Mis zapatos son caros", hint: "Verb 'Ser' must match the plural subject 'Zapatos'." },
+            { wrong: "La passporte ser rojo.", correct: "El pasaporte es rojo", hint: "CaRoLiNa rule: No double 's'. Also, pasaporte is masculine" }
         ];
 
         function renderExercise2() {
@@ -522,6 +534,7 @@ Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo
                     <div class="input-group">
                         <input type="text" id="in-${index}" placeholder="Type corrected sentence..." autocomplete="off">
                         <button class="check-btn" onclick="checkSentence(${index})">Check</button>
+                        <button class="hint-btn" onclick="showHint(${index})">?</button>
                     </div>
                     <div class="feedback-msg" id="msg-${index}"></div>
                 `;
@@ -543,8 +556,14 @@ Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo
             } else {
                 input.className = 'incorrect';
                 msg.className = 'feedback-msg fail';
-                msg.textContent = `Correction: ${sentenceData[index].correct}`;
+                msg.textContent = `Incorrect. Try again!`;
             }
+        }
+
+        function showHint(index) {
+            const msg = document.getElementById(`msg-${index}`);
+            msg.textContent = `Hint: ${sentenceData[index].hint}`;
+            msg.className = 'feedback-msg info';
         }
     </script>
 </body>
