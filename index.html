@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Writing Feedback & Practice (Session 7)</title>
+    <style>
+        :root {
+            --primary: #005a9c;
+            --primary-dark: #003d6b;
+            --success: #1e8e3e;
+            --error: #d93025;
+            --warning: #f9a825;
+            --bg-light: #f8f9fa;
+            --border: #e0e0e0;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --card-hover: 0 12px 20px rgba(0,0,0,0.15);
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #fcfcfc;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 40px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.05);
+        }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 40px; border-bottom: 2px solid #f0f0f0; padding-bottom: 20px; }
+        h2 { color: var(--primary); border-bottom: 2px solid #f0f0f0; padding-bottom: 10px; margin-top: 50px; }
+        h3 { color: #444; margin-top: 25px; font-weight: 600; border-left: 4px solid #ddd; padding-left: 10px; }
+        
+        /* --- NEW SECTION: FEEDBACK CARDS --- */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .feedback-card {
+            background: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            border-top: 5px solid var(--primary);
+        }
+        .feedback-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-hover);
+            border-color: var(--primary-dark);
+        }
+        .feedback-card h4 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.1em;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .feedback-card p {
+            font-size: 0.95em;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .encouragement-box {
+            background-color: #e8f5e9;
+            border-left: 6px solid var(--success);
+            padding: 20px;
+            border-radius: 6px;
+            font-size: 1.05em;
+            color: #2e7d32;
+            margin-bottom: 50px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .encouragement-box strong {
+            font-weight: 700;
+        }
+
+        /* --- OLD STYLES PRESERVED --- */
+        .explanation {
+            background-color: #eef6fc;
+            border-left: 4px solid var(--primary);
+            padding: 10px 15px;
+            margin: 5px 0 15px 0;
+            font-size: 0.95em;
+            color: #444;
+            font-style: italic;
+        }
+        .error-text { color: var(--error); text-decoration: line-through; margin-right: 5px; }
+        .correction-text { color: var(--success); font-weight: bold; }
+        ul { padding-left: 20px; }
+        li { margin-bottom: 15px; }
+
+        /* Exercise 1 Styles */
+        .text-editor-box {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1em;
+            line-height: 2.2;
+            background: #fff;
+            border: 2px solid #ccc;
+            padding: 30px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            position: relative;
+        }
+        .word {
+            cursor: pointer;
+            padding: 2px 1px;
+            border-radius: 3px;
+            transition: background-color 0.1s;
+            border-bottom: 2px solid transparent;
+        }
+        .word:hover {
+            background-color: #e3f2fd;
+            border-bottom: 2px solid #bbb;
+        }
+        .word.corrected {
+            color: var(--success);
+            font-weight: bold;
+            border-bottom: none;
+            cursor: default;
+            background-color: rgba(30, 142, 62, 0.1);
+        }
+        .status-bar {
+            margin-top: 15px;
+            padding: 10px;
+            background: var(--bg-light);
+            border-radius: 6px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Exercise 2 Styles */
+        .sentence-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        .sentence-row {
+            background: #fff;
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .context { font-weight: bold; color: #d93025; font-size: 1em; font-family: 'Courier New', monospace; }
+        .input-group { display: flex; gap: 10px; margin-top: 5px; }
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1em;
+        }
+        input[type="text"].correct { border-color: var(--success); background-color: #f0fff4; }
+        input[type="text"].incorrect { border-color: var(--error); background-color: #fff0f0; }
+        
+        button.check-btn {
+            padding: 8px 16px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        button.reset-btn {
+            background-color: #666;
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+        }
+        .feedback-msg { font-size: 0.9em; margin-top: 5px; font-weight: bold; min-height: 1.2em;}
+        .feedback-msg.success { color: var(--success); }
+        .feedback-msg.fail { color: var(--error); }
+        .feedback-msg.info { color: var(--warning); }
+
+        /* Modal */
+        .mini-modal {
+            position: fixed;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+            z-index: 1000;
+            display: none;
+            width: 320px;
+            border-top: 5px solid var(--primary);
+        }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 999;
+            display: none;
+            backdrop-filter: blur(2px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Feedback Guide & Interactive Practice</h1>
+
+        <!-- ================================== -->
+        <!-- SECTION 1: GENERAL FEEDBACK CARDS  -->
+        <!-- ================================== -->
+        <h2>1. General Feedback</h2>
+        
+        <div class="cards-grid">
+            <!-- Card 1 -->
+            <div class="feedback-card">
+                <h4>1. Grammar & Vocabulary Gaps</h4>
+                <p>Most errors were related to gaps in grammar (unconjugated or incorrectly conjugated verbs, gender and number agreement issues, prepositions and collocations, word order, etc.) and vocabulary (many of you clearly did not remember the words to describe holiday activities, clothing, and so on). To improve these areas, please make good use of the resources available to you, such as flashcards, revision exercises, and games like the Conjugator or Blooket.</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="feedback-card" style="border-top-color: #f9a825;">
+                <h4>2. Reading Instructions</h4>
+                <p>Other errors came from not reading or understanding the instructions properly. Some of you wrote about completely different topics (for example, describing your family, appearance, or preferences), and others ignored useful indications: I noticed that many of you could not think of things to do in Macau and yet chose to write about this city even though you could have written about any other destination you know better. This shows how important it is to stay calm, read the instructions carefully, and focus on meeting the explicit aims of the task.</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="feedback-card" style="border-top-color: #d93025;">
+                <h4>3. New Structures</h4>
+                <p>A few of you also attempted structures we have not studied yet. Sometimes this happens because we try to express ourselves as we would in our own language (which you obviously cannot do yet—sadly none of you has linguistic superpowers!), and sometimes because you tried to use structures learned outside class but not fully assimilated. Please remember that teachers want to see how well you use what we have learned in class. Using a past tense verb correctly by chance, or including a rare literary word, will not improve your mark and may even lead you into unnecessary risks.</p>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="feedback-card" style="border-top-color: #1e8e3e;">
+                <h4>4. Text Flow & Tone</h4>
+                <p>Another common issue was producing texts that read like a “shopping list”: short, disconnected sentences written only to meet the task requirements, without aiming for a natural, authentic tone. Please remember to group information logically and make use of the few connectors you have already learned (y, primero, por ejemplo, pero, porque…).</p>
+            </div>
+        </div>
+
+        <!-- Encouragement Message -->
+        <div class="encouragement-box">
+            <p><strong>Don't give up!</strong> If you find your result disappointing, please do <strong>not</strong> feel discouraged. It does not affect your grade, and I am certain that you will do much better in Progress Test 2: you now know exactly what to expect and will have had more time to study and consolidate the contents.</p>
+        </div>
+
+
+        <!-- ================================== -->
+        <!-- SECTION 2: DETAILED ERROR ANALYSIS -->
+        <!-- ================================== -->
+        <h2>2. Detailed Error Analysis</h2>
+        <p style="color:#666; margin-bottom:20px;">Review these specific examples taken directly from your class submissions.</p>
+
+        <!-- SECTION A: STRUCTURE -->
+        <h3>A. Structure & Organization</h3>
+        <ul>
+            <li><strong>Paragraph Division</strong>
+                <div class="explanation">Explanation: Do not write a single block of text. Use line breaks to visually separate your ideas.</div>
+            </li>
+            <li><strong>Repetition & Adverbs (Allí)</strong>
+                <div class="explanation">Explanation: Avoid repeating the place name in every sentence. Use "allí" (there).</div>
+                Real Mistake: <span class="error-text">"En Macao hay casinos. En Macao hace calor..."</span><br>
+                Correction: <span class="correction-text">"En Macao hay casinos. Allí hace calor..."</span>
+            </li>
+        </ul>
+
+        <!-- SECTION B: GRAMMAR & PRONOUNS -->
+        <h3>B. Grammar & Pronouns</h3>
+        <ul>
+            <li><strong>Prepositional Pronouns (Contigo)</strong>
+                <div class="explanation">Explanation: After "con", use "migo" (with me) or "tigo" (with you). Never "con tu".</div>
+                Real Mistake: <span class="error-text">"Me gusta viajar con tu"</span> → <span class="correction-text">"Me gusta viajar contigo"</span><br>
+                Real Mistake: <span class="error-text">"Quiero ir a la playa con tu"</span> → <span class="correction-text">"Quiero ir a la playa contigo"</span>
+            </li>
+            <li><strong>Ser vs. Estar</strong>
+                <div class="explanation">Explanation: Use 'Estar' for location and temporary states (health, mood).</div>
+                Real Mistake: <span class="error-text">"Soy bien"</span> → <span class="correction-text">"Estoy bien"</span><br>
+                Real Mistake: <span class="error-text">"Soy feliz"</span> (excited now) → <span class="correction-text">"Estoy feliz"</span><br>
+                Real Mistake: <span class="error-text">"Soy en Macao"</span> → <span class="correction-text">"Estoy en Macao"</span>
+            </li>
+            <li><strong>Agreement (Concordancia)</strong>
+                <div class="explanation">Explanation: Adjectives must match the noun. 'Gente' and 'Ropa' are Singular.</div>
+                Real Mistake: <span class="error-text">"Un semana pasada"</span> → <span class="correction-text">"Una semana pasada"</span><br>
+                Real Mistake: <span class="error-text">"La gente... son ricas"</span> → <span class="correction-text">"La gente... es rica"</span><br>
+                Real Mistake: <span class="error-text">"Pantalones largo"</span> → <span class="correction-text">"Pantalones largos"</span>
+            </li>
+        </ul>
+
+        <!-- SECTION C: VERBS & VOCABULARY -->
+        <h3>C. Verbs & Vocabulary</h3>
+        <ul>
+            <li><strong>Tener vs. Tomar</strong>
+                <div class="explanation">Explanation: You don't "have" (possess) breakfast in Spanish, you "take" (consume) it.</div>
+                Real Mistake: <span class="error-text">"Quiero tener comida"</span> → <span class="correction-text">"Quiero comer / tomar algo"</span><br>
+                Real Mistake: <span class="error-text">"Tener desayuno"</span> → <span class="correction-text">"Desayunar / Tomar el desayuno"</span>
+            </li>
+            <li><strong>"Spanglish" & False Friends</strong>
+                <div class="explanation">Explanation: Do not invent words based on English. Use a dictionary.</div>
+                Real Mistakes from Class: <span class="error-text">"La beach"</span> (La playa), <span class="error-text">"Touristico"</span> (Turístico), <span class="error-text">"Night view"</span> (Vistas nocturnas), <span class="error-text">"Comfortable"</span> (Cómodo).
+            </li>
+            <li><strong>Periphrasis (Future Plans)</strong>
+                <div class="explanation">Explanation: Conjugate only the first verb (Ir a + Inf, Querer + Inf).</div>
+                Real Mistake: <span class="error-text">"Quiero escribe"</span> → <span class="correction-text">"Quiero escribir"</span><br>
+                Real Mistake: <span class="error-text">"Quiero compro"</span> → <span class="correction-text">"Quiero comprar"</span><br>
+                Real Mistake: <span class="error-text">"Vamos viajamos"</span> → <span class="correction-text">"Vamos a viajar"</span>
+            </li>
+        </ul>
+
+        <!-- SECTION D: ORTHOGRAPHY -->
+        <h3>D. Orthography & Spelling</h3>
+        <ul>
+            <li><strong>Capitalization</strong>: Countries = Capitalized. Languages = Lowercase.
+                <br>Real Mistake: <span class="error-text">"macao"</span>, <span class="error-text">"hablo Inglés"</span>.
+            </li>
+            <li><strong>CaRoLiNa Rule</strong>: Spanish rarely uses double consonants (only C, R, L, N).
+                <br>Real Mistakes: <span class="error-text">"Passporte"</span> (Pasaporte), <span class="error-text">"Necessito"</span> (Necesito), <span class="error-text">"Different"</span> (Diferente).
+            </li>
+        </ul>
+
+
+        <!-- ================================== -->
+        <!-- SECTION 3: INTERACTIVE EXERCISES   -->
+        <!-- ================================== -->
+        
+        <h2 style="margin-top:50px; color:var(--primary)">3. Interactive Practice</h2>
+
+        <!-- EXERCISE 1 -->
+        <h3>Exercise 1: Proofreading Challenge</h3>
+        <p>The errors in the text below are <strong>hidden</strong>. Read carefully and <strong>click on any word</strong> to edit it. Correct the 15 errors!</p>
+        
+        <div class="text-editor-box" id="proofread-text">Hola <span class="err-word" data-answer="Julene">julene</span>, ¿<span class="err-word" data-answer="Qué">Que</span> tal? Yo <span class="err-word" data-answer="estoy">soy</span> bien. ¡Estoy feliz porque <span class="err-word" data-answer="vamos a">vamos en</span> <span class="err-word" data-answer="Macao">macao</span> <span class="err-word" data-answer="el">en</span> sábado! Macao es <span class="err-word" data-answer="una">un</span> ciudad muy interesante.
+Quiero <span class="err-word" data-answer="comprar">compro</span> muchas cosas. <span class="err-word" data-answer="Necesito">Necessito</span> llevar <span class="err-word" data-answer="mucho dinero">muchos dineros</span> y mi <span class="err-word" data-answer="pasaporte">passaporte</span>. Para las actividades, quiero visitar un museo y <span class="err-word" data-answer="desayunar">tener desayuno</span> en un café famoso. La gente en Macao <span class="err-word" data-answer="es">son</span> muy simpática.
+Para la ropa, llevo pantalones <span class="err-word" data-answer="largos">largo</span> y una camiseta. Tengo siete <span class="err-word" data-answer="u">o</span> ocho camisetas. <span class="err-word" data-answer="La ropa es">Las ropas son</span> de Uniqlo.</div>
+        
+        <div class="status-bar">
+            <span>Found & Corrected: <span id="ex1-count" style="color:var(--primary)">0</span> / 15</span>
+            <button class="check-btn" onclick="location.reload()" style="background:#666; font-size:0.8em">Restart Page</button>
+        </div>
+
+        <hr style="margin: 40px 0; border: 0; border-top: 1px solid #ddd;">
+
+        <!-- EXERCISE 2 -->
+        <h3>Exercise 2: General Error Correction</h3>
+        <p>The following 30 sentences contain mixed errors. <strong>Type the FULL corrected sentence</strong>.</p>
+
+        <div id="exercise2-container" class="sentence-grid"></div>
+        
+        <button class="check-btn reset-btn" onclick="renderExercise2()">Reset Exercise 2</button>
+    </div>
+
+    <!-- MODAL FOR EXERCISE 1 -->
+    <div class="overlay" id="overlay"></div>
+    <div class="mini-modal" id="modal">
+        <h4 style="margin-top:0; color:var(--primary); margin-bottom:10px">Edit Word</h4>
+        <div style="margin-bottom:10px; font-size:0.9em; color:#666">Current word: <span id="current-word-display" style="font-weight:bold; color:#333"></span></div>
+        
+        <input type="text" id="modal-input" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ccc; border-radius:4px" placeholder="Type correction..." autocomplete="off">
+        
+        <button class="check-btn" onclick="submitCorrection()" style="width:100%">Check</button>
+        <div id="modal-msg" style="min-height:1.2em; margin-top:8px; font-size:0.85em; font-weight:bold;"></div>
+    </div>
+
+    <script>
+        /* ===========================
+           LOGIC FOR EXERCISE 1 (TOKENIZER)
+           =========================== */
+        document.addEventListener('DOMContentLoaded', () => {
+            initProofreader();
+            renderExercise2();
+        });
+
+        let currentSpan = null;
+        let correctedCount = 0;
+
+        function initProofreader() {
+            const container = document.getElementById('proofread-text');
+            const childNodes = Array.from(container.childNodes);
+            container.innerHTML = ''; 
+
+            childNodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const segments = node.textContent.split(/(\s+)/);
+                    segments.forEach(seg => {
+                        if (seg.trim().length === 0) {
+                            container.appendChild(document.createTextNode(seg));
+                        } else {
+                            const span = document.createElement('span');
+                            span.className = 'word';
+                            span.textContent = seg;
+                            span.onclick = () => handleWordClick(span);
+                            container.appendChild(span);
+                        }
+                    });
+                } else if (node.nodeType === Node.ELEMENT_NODE && node.classList.contains('err-word')) {
+                    const span = document.createElement('span');
+                    span.className = 'word is-error'; 
+                    span.textContent = node.textContent;
+                    span.setAttribute('data-answer', node.getAttribute('data-answer'));
+                    span.onclick = () => handleWordClick(span);
+                    container.appendChild(span);
+                }
+            });
+        }
+
+        function handleWordClick(span) {
+            if (span.classList.contains('corrected')) return;
+            
+            currentSpan = span;
+            const currentText = span.textContent;
+            
+            document.getElementById('overlay').style.display = 'block';
+            document.getElementById('modal').style.display = 'block';
+            
+            document.getElementById('current-word-display').textContent = currentText;
+            document.getElementById('modal-input').value = currentText;
+            document.getElementById('modal-msg').textContent = '';
+            document.getElementById('modal-input').classList.remove('correct', 'incorrect');
+            
+            setTimeout(() => {
+                document.getElementById('modal-input').select();
+            }, 100);
+        }
+
+        function submitCorrection() {
+            if (!currentSpan) return;
+            
+            const userVal = document.getElementById('modal-input').value.trim();
+            const msgBox = document.getElementById('modal-msg');
+            const inputBox = document.getElementById('modal-input');
+            const correctAnswer = currentSpan.getAttribute('data-answer');
+            
+            if (correctAnswer) {
+                const answers = correctAnswer.toLowerCase().split('/');
+                if (answers.includes(userVal.toLowerCase())) {
+                    currentSpan.textContent = correctAnswer.split('/')[0];
+                    currentSpan.classList.add('corrected');
+                    currentSpan.classList.remove('is-error');
+                    correctedCount++;
+                    document.getElementById('ex1-count').textContent = correctedCount;
+                    closeModal();
+                } else {
+                    msgBox.textContent = "Incorrect. Try again.";
+                    msgBox.className = "feedback-msg fail";
+                    inputBox.classList.add('incorrect');
+                }
+            } else {
+                if (userVal.toLowerCase() !== currentSpan.textContent.toLowerCase()) {
+                    msgBox.textContent = "Wait! This word was already correct.";
+                    msgBox.className = "feedback-msg info";
+                    inputBox.classList.add('incorrect');
+                } else {
+                    msgBox.textContent = "This word is correct.";
+                    msgBox.className = "feedback-msg success";
+                }
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('overlay').style.display = 'none';
+            document.getElementById('modal').style.display = 'none';
+            currentSpan = null;
+        }
+        
+        document.getElementById('modal-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') submitCorrection();
+        });
+        document.getElementById('overlay').addEventListener('click', closeModal);
+
+
+        /* ===========================
+           LOGIC FOR EXERCISE 2 (30 Errors)
+           =========================== */
+        const sentenceData = [
+            { wrong: "Soy bien hoy.", correct: "Estoy bien hoy" },
+            { wrong: "Vamos en Japón.", correct: "Vamos a Japón" },
+            { wrong: "Tengo muchos dineros.", correct: "Tengo mucho dinero" },
+            { wrong: "Quiero compro ropa.", correct: "Quiero comprar ropa" },
+            { wrong: "Voy con tu.", correct: "Voy contigo" },
+            { wrong: "Necessito mi passaporte.", correct: "Necesito mi pasaporte" },
+            { wrong: "La gente son simpáticas.", correct: "La gente es simpática" },
+            { wrong: "Llevo las ropas.", correct: "Llevo la ropa" },
+            { wrong: "En lunes descanso.", correct: "El lunes descanso" },
+            { wrong: "Un semana tener 7 días.", correct: "Una semana tiene 7 días" },
+            { wrong: "El hotel es en macao.", correct: "El hotel está en Macao" },
+            { wrong: "Querer viajar en la playa.", correct: "Quiero viajar a la playa" },
+            { wrong: "Hablo español y inglés.", correct: "Hablo español e inglés" },
+            { wrong: "Queiro siete o ocho.", correct: "Quiero siete u ocho" },
+            { wrong: "Yo comer mucho.", correct: "Yo como mucho" },
+            { wrong: "Es un lugar touristico.", correct: "Es un lugar turístico" },
+            { wrong: "Es muy differente.", correct: "Es muy diferente" },
+            { wrong: "Un pantalones largo.", correct: "Unos pantalones largos" },
+            { wrong: "Quiero tener desayuno.", correct: "Quiero desayunar" },
+            { wrong: "Gusto macao.", correct: "Me gusta Macao" },
+            { wrong: "Yo hacer photos.", correct: "Yo hago fotos" },
+            { wrong: "Tengo que llevo dinero.", correct: "Tengo que llevar dinero" },
+            { wrong: "Me gusta beach.", correct: "Me gusta la playa" },
+            { wrong: "En fin de semana estudio.", correct: "El fin de semana estudio" },
+            { wrong: "Tengo camisa blanca y negro.", correct: "Tengo una camisa blanca y negra" },
+            { wrong: "Mi zapatos es caros.", correct: "Mis zapatos son caros" },
+            { wrong: "Mi passporte roja.", correct: "Mi pasaporte es rojo" }
+        ];
+
+        function renderExercise2() {
+            const container = document.getElementById('exercise2-container');
+            container.innerHTML = '';
+            
+            sentenceData.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'sentence-row';
+                div.innerHTML = `
+                    <div>Error: <span class="context">${item.wrong}</span></div>
+                    <div class="input-group">
+                        <input type="text" id="in-${index}" placeholder="Type corrected sentence..." autocomplete="off">
+                        <button class="check-btn" onclick="checkSentence(${index})">Check</button>
+                    </div>
+                    <div class="feedback-msg" id="msg-${index}"></div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function checkSentence(index) {
+            const input = document.getElementById(`in-${index}`);
+            const msg = document.getElementById(`msg-${index}`);
+            
+            const cleanInput = input.value.trim().toLowerCase().replace(/[!.,]/g, '');
+            const cleanAnswer = sentenceData[index].correct.toLowerCase().replace(/[!.,]/g, '');
+
+            if (cleanInput === cleanAnswer) {
+                input.className = 'correct';
+                msg.className = 'feedback-msg success';
+                msg.textContent = "¡Correcto!";
+            } else {
+                input.className = 'incorrect';
+                msg.className = 'feedback-msg fail';
+                msg.textContent = `Correction: ${sentenceData[index].correct}`;
+            }
+        }
+    </script>
+</body>
+</html>
