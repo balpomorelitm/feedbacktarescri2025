@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Writing feedback & practice · SPAN1001</title>
+  <style>
+    :root{color-scheme:light;--ink:#172b45;--muted:#4e6073;--blue:#115c98;--deep:#123a63;--line:#d7e2eb;--pale:#eef6fc;--green:#167449;--red:#b32236;--gold:#d69b16;--shadow:0 12px 30px #1c43610d}
+    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:#f4f8fb;color:var(--ink);line-height:1.65;font-size:16px}
+    a{color:#07548e} button,input{font:inherit} button{cursor:pointer} button:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #edac24;outline-offset:3px}
+    .wrap{width:min(1120px,calc(100% - 36px));margin:auto}.hero{background:linear-gradient(125deg,#103e68,#126c9d);color:white;padding:52px 0 43px}.eyebrow{font-size:.83rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#c8ecff}.hero h1{font-size:clamp(2.05rem,5vw,3.55rem);line-height:1.12;letter-spacing:-.035em;margin:.35rem 0 1rem;max-width:780px}.hero p{max-width:720px;margin:0;color:#ebf7ff;font-size:1.08rem}.tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:22px}.tag{border:1px solid #ffffff80;border-radius:100px;padding:4px 12px;font-size:.88rem}
+    nav{background:white;border-bottom:1px solid var(--line)}nav .wrap{display:flex;gap:10px 26px;flex-wrap:wrap;padding:15px 0}nav a{text-decoration:none;font-weight:700}main{padding:18px 0 65px}section{scroll-margin-top:20px;margin-top:54px}.section-head{max-width:790px;margin-bottom:22px}.kicker{color:var(--blue);font-size:.8rem;text-transform:uppercase;letter-spacing:.13em;font-weight:800}.section-head h2{font-size:clamp(1.65rem,3vw,2.25rem);line-height:1.2;margin:.2rem 0 .6rem}.section-head p{color:var(--muted);margin:0}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}.card,.lesson,.practice{background:white;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}.card{padding:22px;border-top:5px solid var(--blue)}.card:nth-child(2){border-top-color:#d39a19}.card:nth-child(3){border-top-color:#a94666}.card:nth-child(4){border-top-color:#218466}.card h3,.lesson h3{margin:0 0 8px;line-height:1.3;font-size:1.06rem}.card p,.lesson p{margin:0;color:var(--muted)}.encouragement{margin-top:18px;border-radius:12px;background:#e7f6ef;border-left:5px solid #2b9471;padding:18px 20px}.encouragement p{margin:0}
+    .lessons{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}.lesson{padding:21px}.code{display:inline-block;font-size:.78rem;letter-spacing:.05em;color:#115c98;background:#e4f2fb;border-radius:5px;font-weight:800;padding:3px 7px;margin-bottom:10px}.example{border-top:1px solid #e9eff4;padding-top:12px;margin-top:12px;line-height:1.8}.wrong{color:var(--red);text-decoration:line-through}.right{color:var(--green);font-weight:750}.small{font-size:.91rem;color:var(--muted)}.tip{margin-top:18px;background:#fff7dc;border-left:5px solid var(--gold);padding:15px 19px;border-radius:9px}.tip p{margin:0}
+    .practice{padding:clamp(19px,4vw,32px);margin:18px 0}.practice h3{font-size:1.3rem;margin:0 0 7px}.practice>p{margin:0 0 16px;color:var(--muted)}.editor{font-family:Georgia,serif;font-size:1.13rem;line-height:2.4;background:#f6faff;border:1px solid #caddec;border-radius:10px;padding:20px}.word{font:inherit;color:inherit;background:transparent;border:0;border-radius:4px;padding:2px 1px;text-align:left}.word:hover{background:#dbeefa}.word.done{color:#116b42;background:#e5f5ea;font-weight:bold}.toolrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:16px}.status{color:var(--green);font-weight:700;min-height:1.5em}.btn{border:0;background:var(--blue);color:white;border-radius:8px;padding:9px 16px;font-weight:700}.btn:hover{background:#0a4878}.btn.secondary{background:#e5f0f8;color:#17466e}.btn.plain{background:white;border:1px solid #afc5d6;color:#254d6c}.btn.small-btn{padding:7px 12px;font-size:.92rem}
+    .sentence-list{display:grid;gap:13px}.sentence{border:1px solid var(--line);border-radius:10px;padding:17px}.sentence p{margin:0 0 9px}.sentence .context{color:var(--red);font-weight:700}.inputrow{display:flex;gap:8px;flex-wrap:wrap}.inputrow input,dialog input{min-width:0;flex:1 1 240px;padding:10px;border:1px solid #a9bccb;border-radius:7px;background:white;color:var(--ink)}.message{min-height:1.5em;margin:8px 0 0!important;font-weight:650}.message.good{color:var(--green)}.message.retry{color:var(--red)}.message.info{color:#205578}
+    dialog{max-width:min(430px,calc(100vw - 32px));width:100%;border:0;border-top:5px solid var(--blue);border-radius:14px;padding:25px;box-shadow:0 25px 60px #102e4f55;color:var(--ink)}dialog::backdrop{background:#102b42a8}dialog h3{margin:0 0 6px}dialog input{display:block;width:100%;margin:12px 0}.dialog-actions{display:flex;gap:8px;flex-wrap:wrap}footer{color:var(--muted);padding:22px 0 36px;border-top:1px solid var(--line);font-size:.9rem}noscript{display:block;padding:15px;background:#fff0df;color:#713d00}
+    @media(max-width:540px){.hero{padding:38px 0}.editor{padding:15px}.inputrow input{flex-basis:100%}nav .wrap{gap:8px 16px}}
+  </style>
+</head>
+<body>
+  <header class="hero"><div class="wrap">
+    <div class="eyebrow">SPAN1001 · Writing practice</div>
+    <h1>Writing feedback<br>& practice</h1>
+    <p>Talking about clothes, preferences and different styles. Review the feedback, then use the activities to practise before you revisit your own writing.</p>
+    <div class="tags"><span class="tag">General feedback</span><span class="tag">Examples</span><span class="tag">Interactive practice</span></div>
+  </div></header>
+  <nav aria-label="Page sections"><div class="wrap"><a href="#feedback">General feedback</a><a href="#examples">Common errors</a><a href="#practice">Practice</a></div></nav>
+  <main class="wrap">
+    <section id="feedback">
+      <div class="section-head"><div class="kicker">Start here</div><h2>General feedback</h2><p>Here is some feedback on the writing task. These are useful points to check as you prepare your next text.</p></div>
+      <div class="cards">
+        <article class="card"><h3>Follow the task</h3><p>Describe and compare your style and another person's. Include the situations and shopping details requested in the task. When you contrast two people, make it clear who you are talking about.</p></article>
+        <article class="card"><h3>Check agreement</h3><p>Articles and adjectives need to match the noun. Look carefully at both gender and number, especially with clothes and colours.</p></article>
+        <article class="card"><h3>Look at the verb</h3><p>Check who does the action and choose the right present-tense form. Remember that <em>gustar</em> works differently: it agrees with the thing or activity you like.</p></article>
+        <article class="card"><h3>Connect your ideas</h3><p>Group related ideas and use familiar connectors such as <em>y, pero, porque, por ejemplo</em> and <em>por último</em>. Try not to repeat the same sentence pattern too often.</p></article>
+      </div>
+      <div class="tip"><p><strong>What came up most often?</strong> Gender and number agreement were especially common, including agreement with colours and clothes. <em>Gustar</em> and <em>encantar</em>, particularly the choice of pronoun and verb form, also caused difficulties in several texts. When comparing two people, remember to make both subject pronouns explicit, as requested in this task.</p></div>
+      <div class="encouragement"><p><strong>Keep practising!</strong> Making mistakes is part of learning. Use your individual feedback and these examples to spot patterns, correct your own text and build confidence.</p></div>
+    </section>
+    <section id="examples">
+      <div class="section-head"><div class="kicker">Review</div><h2>Common errors to look out for</h2><p>The examples below come from your class texts; some are shortened or anonymised. The red text shows the part to change; the green text shows one possible correction.</p></div>
+      <div class="lessons">
+        <article class="lesson"><span class="code">G · N · GN</span><h3>Gender and number</h3><p>Articles and adjectives agree with the noun. <em>Ropa</em> is usually singular; <em>pantalones</em> and <em>zapatillas</em> are plural.</p><div class="example" lang="es">una camiseta <span class="wrong">blanco</span> → una camiseta <span class="right">blanca</span><br>unos vaqueros <span class="wrong">azul</span> → unos vaqueros <span class="right">azules</span><br><span class="wrong">mucho ropas</span> → <span class="right">mucha ropa</span></div></article>
+        <article class="lesson"><span class="code">G · N</span><h3>Colours and patterns</h3><p>Many colour adjectives change to match the item. Some, such as <em>gris</em>, have the same form for masculine and feminine but change in the plural. <em>Estampada</em> is an adjective describing <em>ropa</em>.</p><div class="example" lang="es">ropa <span class="wrong">negro</span> → ropa <span class="right">negra</span><br>unas zapatillas <span class="wrong">gris</span> → unas zapatillas <span class="right">grises</span><br>ropa con colores diferentes y <span class="right">estampada</span></div></article>
+        <article class="lesson"><span class="code">V · GR</span><h3>Gustar and encantar</h3><p>Use <em>gusta / encanta</em> with a singular thing or an infinitive, and <em>gustan / encantan</em> with plural things. The pronoun shows who likes them.</p><div class="example" lang="es">me <span class="wrong">gustan</span> más comprar → me <span class="right">gusta</span> más comprar<br>nos <span class="wrong">gusta</span> unas zapatillas → nos <span class="right">gustan</span> unas zapatillas<br>le <span class="wrong">encantan</span> llevar camisetas → le <span class="right">encanta</span> llevar camisetas</div></article>
+        <article class="lesson"><span class="code">MW · GR</span><h3>Who likes it?</h3><p>When you name the person, use <em>a</em> and keep the pronoun <em>me / le</em>. With <em>a mí</em>, use <em>me</em>.</p><div class="example" lang="es"><span class="wrong">mi mejor amiga</span> le gusta ropa → <span class="right">a mi mejor amiga</span> le gusta ropa<br>a mi amiga <span class="right">le</span> gusta la marca<br>a mí <span class="wrong">le</span> gusta → a mí <span class="right">me</span> gusta</div></article>
+        <article class="lesson"><span class="code">V</span><h3>Present tense and infinitives</h3><p>Match the verb to the person: <em>yo prefiero, ella prefiere, nosotras vamos</em>. After <em>gustar</em> or <em>encantar</em>, use an infinitive for the next action.</p><div class="example" lang="es">yo <span class="wrong">prefieres</span> → yo <span class="right">prefiero</span><br>me gusta <span class="wrong">llevo</span> la chaqueta → me gusta <span class="right">llevar</span> la chaqueta<br>le gusta <span class="wrong">lleva</span> → le gusta <span class="right">llevar</span></div></article>
+        <article class="lesson"><span class="code">PRO</span><h3>Make the contrast clear</h3><p>For this task, include the subject pronouns explicitly when contrasting the two people. This makes it easy to follow whose style you are describing.</p><div class="example" lang="es"><span class="right">Yo</span> prefiero llevar ropa sencilla y elegante, pero <span class="right">él</span> prefiere ropa aburrida y fea.</div></article>
+        <article class="lesson"><span class="code">EXP · VOC</span><h3>Useful expressions</h3><p>Learn useful combinations as short phrases. Check prepositions and vocabulary when you are unsure.</p><div class="example" lang="es">ir <span class="wrong">al compras</span> → ir <span class="right">de compras</span><br>ocasiones <span class="wrong">formal</span> → ocasiones <span class="right">formales</span><br><span class="wrong">por la última</span> → <span class="right">por último</span></div></article>
+        <article class="lesson"><span class="code">SP</span><h3>Spelling and accents</h3><p>Check the spelling of familiar words and accents. <em>Mi</em> means “my”, but <em>a mí</em> means “to me”; <em>el</em> is “the”, but <em>él</em> means “he”.</p><div class="example" lang="es">para <span class="wrong">mi</span> → para <span class="right">mí</span><br><span class="wrong">el</span> compra ropa → <span class="right">él</span> compra ropa<br><span class="right">también · último · pantalones</span></div></article>
+      </div>
+      <div class="tip"><p><strong>Before you check the model:</strong> try to find and correct the errors in your own writing first. Then compare your ideas with your individual feedback.</p></div>
+    </section>
+    <section id="practice">
+      <div class="section-head"><div class="kicker">Your turn</div><h2>Interactive practice</h2><p>Use the hints when you need them. These activities are for practice, so take your time and try again as often as you like.</p></div>
+      <noscript>Please enable JavaScript to use the interactive practice.</noscript>
+      <div class="practice">
+        <h3>Proofreading challenge</h3><p>Read these short extracts from class texts and select any word you think needs changing. The extracts have been shortened or anonymised. Type your correction and check it. Some corrections may need more than one word.</p>
+        <div class="editor" id="editor" lang="es" aria-label="Practice text"></div>
+        <div class="toolrow"><button type="button" class="btn plain" id="reset-proof">Start this text again</button><span id="proof-status" class="status" role="status"></span></div>
+      </div>
+      <div class="practice">
+        <h3>Correct the sentences</h3><p>Type the complete corrected sentence or extract. Names have sometimes been replaced by a pronoun or a general expression. You can use a hint or reveal a model answer. The checker recognises the listed model answers; other correct ways to express an idea may exist.</p>
+        <div class="sentence-list" id="sentences"></div>
+        <div class="toolrow"><button type="button" class="btn plain" id="reset-sentences">Reset these sentences</button></div>
+      </div>
+    </section>
+  </main>
+  <footer><div class="wrap">SPAN1001 · Writing feedback & practice</div></footer>
+  <dialog id="edit-dialog" aria-labelledby="dialog-title">
+    <form id="edit-form">
+      <h3 id="dialog-title">Edit this word</h3><p>Selected: <strong id="selected-word" lang="es"></strong></p>
+      <label for="edit-input">Your correction</label><input id="edit-input" autocomplete="off" lang="es">
+      <div class="dialog-actions"><button class="btn" type="submit">Check</button><button class="btn secondary" type="button" id="word-hint">Hint</button><button class="btn plain" type="button" id="close-dialog">Close</button></div>
+      <p id="edit-message" class="message" role="status"></p>
+    </form>
+  </dialog>
+  <script>
+    "use strict";
+    // Shortened or anonymised extracts from class texts; no student names or answers are stored.
+    const textParts = [
+      "Llevamos ropa muy ",
+      {
+            "w": "diferentes",
+            "a": [
+                  "diferente"
+            ],
+            "h": "Ropa is singular."
+      },
+      ". ",
+      "Mi amiga lleva falda ",
+      {
+            "w": "negro",
+            "a": [
+                  "negra"
+            ],
+            "h": "Falda is feminine and singular."
+      },
+      ". ",
+      "Le encanta ",
+      {
+            "w": "lleva",
+            "a": [
+                  "llevar"
+            ],
+            "h": "Use the infinitive after encanta."
+      },
+      " vestidos y faldas de cuadros. ",
+      "Además, nos ",
+      {
+            "w": "gusta",
+            "a": [
+                  "gustan"
+            ],
+            "h": "Unas zapatillas is plural."
+      },
+      " unas zapatillas deportivas. ",
+      "Nosotras ",
+      {
+            "w": "simpre",
+            "a": [
+                  "siempre"
+            ],
+            "h": "Check the spelling of siempre."
+      },
+      " ",
+      {
+            "w": "ir",
+            "a": [
+                  "vamos"
+            ],
+            "h": "Use the nosotras form of ir."
+      },
+      " de compras."
+];
+    const questions = [
+      {
+            "q": "Llevamos ropa muy diferentes.",
+            "a": [
+                  "Llevamos ropa muy diferente"
+            ],
+            "h": "Ropa is singular.",
+            "why": "Diferente agrees with ropa."
+      },
+      {
+            "q": "Ella lleva falda negro.",
+            "a": [
+                  "Ella lleva falda negra",
+                  "Ella lleva una falda negra"
+            ],
+            "h": "Falda is feminine and singular.",
+            "why": "Negra agrees with falda."
+      },
+      {
+            "q": "Unos vaqueros azul.",
+            "a": [
+                  "Unos vaqueros azules"
+            ],
+            "h": "Vaqueros is plural.",
+            "why": "Azules agrees with vaqueros."
+      },
+      {
+            "q": "Unas zapatillas gris.",
+            "a": [
+                  "Unas zapatillas grises"
+            ],
+            "h": "What is the plural form of gris?",
+            "why": "The plural of gris is grises."
+      },
+      {
+            "q": "Nosotros tenemos mucho ropas.",
+            "a": [
+                  "Nosotros tenemos mucha ropa"
+            ],
+            "h": "Ropa is normally feminine and singular.",
+            "why": "Mucha agrees with ropa."
+      },
+      {
+            "q": "Mi mejor amiga le gusta ropa.",
+            "a": [
+                  "A mi mejor amiga le gusta ropa",
+                  "A mi mejor amiga le gusta la ropa"
+            ],
+            "h": "Add a before the person; keep le.",
+            "why": "Use a + person, and keep le."
+      },
+      {
+            "q": "A mí le gusta lleva el vestido de blanco.",
+            "a": [
+                  "A mí me gusta llevar el vestido blanco",
+                  "A mí me gusta llevar el vestido de color blanco"
+            ],
+            "h": "Check the pronoun, the infinitive and the colour.",
+            "why": "Use a mí me gusta + infinitive; blanco agrees with vestido."
+      },
+      {
+            "q": "A mí gustan llevar los vaqueros en general.",
+            "a": [
+                  "A mí me gusta llevar los vaqueros en general"
+            ],
+            "h": "Add the pronoun and check the verb before an infinitive.",
+            "why": "Use a mí me gusta + infinitive."
+      },
+      {
+            "q": "Nos gusta unas zapatillas deportivas.",
+            "a": [
+                  "Nos gustan unas zapatillas deportivas"
+            ],
+            "h": "Unas zapatillas is plural.",
+            "why": "Gustan agrees with unas zapatillas."
+      },
+      {
+            "q": "Le encantan llevar unas camisetas de manga corta.",
+            "a": [
+                  "Le encanta llevar unas camisetas de manga corta"
+            ],
+            "h": "Which form do we use before an infinitive?",
+            "why": "Use encanta before an infinitive."
+      },
+      {
+            "q": "Le encanta lleva vestidos y faldas de cuadros.",
+            "a": [
+                  "Le encanta llevar vestidos y faldas de cuadros"
+            ],
+            "h": "After encanta, use the infinitive.",
+            "why": "Llevar is the infinitive."
+      },
+      {
+            "q": "Yo prefieres negro y gris camiseta.",
+            "a": [
+                  "Yo prefiero camisetas negras y grises",
+                  "Yo prefiero las camisetas negras y grises"
+            ],
+            "h": "Check the yo form and the clothing and colours.",
+            "why": "Use yo prefiero; negras and grises agree with camisetas."
+      },
+      {
+            "q": "Nosotras simpre ir de compras.",
+            "a": [
+                  "Nosotras siempre vamos de compras"
+            ],
+            "h": "Check the spelling of siempre and conjugate ir for nosotras.",
+            "why": "The nosotras form of ir is vamos."
+      },
+      {
+            "q": "Nos gusta bastante ir al compras.",
+            "a": [
+                  "Nos gusta bastante ir de compras"
+            ],
+            "h": "Remember the expression ir ... compras.",
+            "why": "The expression is ir de compras."
+      },
+      {
+            "q": "Mi amiga a veces lleva vestido larga.",
+            "a": [
+                  "Mi amiga a veces lleva un vestido largo"
+            ],
+            "h": "Add the article and check the gender of vestido.",
+            "why": "Vestido is masculine: un vestido largo."
+      },
+      {
+            "q": "El compra ropa por internet.",
+            "a": [
+                  "Él compra ropa por internet"
+            ],
+            "h": "The subject pronoun meaning he has an accent.",
+            "why": "Él means he; el without an accent means the."
+      },
+      {
+            "q": "Por la última, nos gusta bastante ir al compras.",
+            "a": [
+                  "Por último, nos gusta bastante ir de compras"
+            ],
+            "h": "Check both the expression meaning finally and ir ... compras.",
+            "why": "The expressions are por último and ir de compras."
+      },
+      {
+            "q": "A mí me gusta llevo la chaqueta.",
+            "a": [
+                  "A mí me gusta llevar la chaqueta"
+            ],
+            "h": "After gusta, use the infinitive.",
+            "why": "Llevar is the infinitive."
+      },
+      {
+            "q": "Para ocasiones formal como el trabajo, llevamos chaquetas.",
+            "a": [
+                  "Para ocasiones formales como el trabajo, llevamos chaquetas"
+            ],
+            "h": "Ocasiones is plural.",
+            "why": "Formales agrees with ocasiones."
+      },
+      {
+            "q": "Para mi, yo a veces llevo una camisa blanca formal.",
+            "a": [
+                  "Para mí, yo a veces llevo una camisa blanca formal"
+            ],
+            "h": "The pronoun after para needs an accent.",
+            "why": "Para mí means for me; mi without an accent means my."
+      }
+];
+    const $ = id => document.getElementById(id);
+    const normalize = s => s.trim().toLocaleLowerCase("es").replace(/[¿?¡!.,;:]/g,"").replace(/\s+/g," ");
+    const dialog=$("edit-dialog"), editor=$("editor"); let selected=null, completed=0;
+    function initProof(){
+      editor.replaceChildren(); completed=0; $("proof-status").textContent="";
+      textParts.forEach(part=>{
+        if(typeof part==="string"){
+          part.split(/(\s+)/).forEach(piece=>{
+            if(!piece)return;
+            if(/^\s+$/.test(piece) || /^[.,;:!?]+$/.test(piece)){editor.append(document.createTextNode(piece));return}
+            const b=document.createElement("button"); b.type="button";b.className="word";b.textContent=piece;b.addEventListener("click",()=>openWord(b,null));editor.append(b);
+          });
+        } else {
+          const b=document.createElement("button");b.type="button";b.className="word";b.textContent=part.w;b.addEventListener("click",()=>openWord(b,part));editor.append(b);
+        }
+      });
+    }
+    function openWord(button,part){
+      if(button.classList.contains("done")) return;
+      selected={button,part};$("selected-word").textContent=button.textContent;$("edit-input").value=button.textContent;$("edit-message").textContent="";$("edit-message").className="message";dialog.showModal();$("edit-input").focus();$("edit-input").select();
+    }
+    $("edit-form").addEventListener("submit",e=>{
+      e.preventDefault();if(!selected)return;
+      const value=normalize($("edit-input").value),message=$("edit-message");
+      if(!value){message.textContent="Type a correction first.";message.className="message retry";return}
+      if(selected.part && selected.part.a.some(answer=>normalize(answer)===value)){
+        selected.button.textContent=selected.part.a[0];selected.button.classList.add("done");selected.button.setAttribute("aria-label",selected.part.a[0]+" — corrected");completed++;dialog.close();
+        $("proof-status").textContent=completed===textParts.filter(x=>typeof x==="object").length?"Well done! You have corrected all the target errors.":"Good correction! Keep looking.";
+      } else if(!selected.part && value===normalize(selected.button.textContent)){
+        message.textContent="This word is already correct.";message.className="message good";
+      } else {
+        message.textContent=selected.part?"Not quite. Try again or use the hint.":"This word is already correct.";message.className=selected.part?"message retry":"message info";
+      }
+    });
+    $("word-hint").addEventListener("click",()=>{if(!selected)return;$("edit-message").textContent=selected.part?selected.part.h:"This word is already correct.";$("edit-message").className="message info"});
+    $("close-dialog").addEventListener("click",()=>dialog.close());
+    $("reset-proof").addEventListener("click",initProof);
+    function renderSentences(){
+      const list=$("sentences");list.replaceChildren();
+      questions.forEach((item,i)=>{
+        const box=document.createElement("article");box.className="sentence";
+        const prompt=document.createElement("p");prompt.innerHTML='<strong>Correct this:</strong> <span class="context" lang="es"></span>';prompt.querySelector("span").textContent=item.q;
+        const row=document.createElement("div");row.className="inputrow";
+        const input=document.createElement("input");input.type="text";input.autocomplete="off";input.lang="es";input.placeholder="Write the complete sentence";input.setAttribute("aria-label","Correction for: "+item.q);
+        const msg=document.createElement("p");msg.className="message";msg.setAttribute("role","status");
+        const mk=(label,cls,fn)=>{const b=document.createElement("button");b.type="button";b.className="btn small-btn "+cls;b.textContent=label;b.addEventListener("click",fn);return b};
+        const check=()=>{const val=normalize(input.value);if(!val){msg.textContent="Write your sentence first.";msg.className="message retry";return}if(item.a.some(a=>normalize(a)===val)){msg.textContent="✓ ¡Correcto! "+item.why;msg.className="message good"}else{msg.textContent="Not quite. Check your answer or use the hint.";msg.className="message retry"}};
+        row.append(input,mk("Check","",check),mk("Hint","secondary",()=>{msg.textContent="Hint: "+item.h;msg.className="message info"}),mk("Show answer","plain",()=>{msg.textContent="One answer: "+item.a[0]+". "+item.why;msg.className="message info"}));
+        input.addEventListener("keydown",e=>{if(e.key==="Enter"){e.preventDefault();check()}});
+        box.append(prompt,row,msg);list.append(box);
+      });
+    }
+    $("reset-sentences").addEventListener("click",renderSentences);
+    initProof();renderSentences();
+  </script>
+</body>
+</html>
